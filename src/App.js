@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Navbar from "./components/Navbar";
 import Map from "./components/Map";
 import Form from './components/Form';
+import GoogleMap from './components/GoogleMaps';
 
 
 class App extends Component {
@@ -9,7 +10,8 @@ class App extends Component {
     return (
       <div>
           <Navbar/>
-        <Map />
+          <GoogleMap/>
+        {/*<Map />*/}
           <Form/>
       </div>
     );
