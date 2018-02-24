@@ -21,7 +21,7 @@ class App extends Component {
     getDataFromChild = (value) => {
         this.setState({
             inBound: value.inBound,
-            stopSelected: value.stopSelected,
+            //stopSelected: value.stopSelected,
             selectedDepatureTime: value.selectedDepatureTime,
             notiftyTime: value.notiftyTime,
             selectedTimeInc: value.selectedTimeInc,
@@ -30,11 +30,16 @@ class App extends Component {
 
         });
     };
+    getStop = (stop) => {
+        this.setState({
+            stopSelected: stop,
+        });
+    };
   render() {
     return (
       <div>
           <Navbar/>
-          <GoogleMap/>
+          <GoogleMap selectStop={this.getStop}/>
           <Form updateParent={this.getDataFromChild}/>
       </div>
     );

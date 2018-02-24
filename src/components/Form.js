@@ -45,7 +45,7 @@ class Form extends Component {
      validate = () =>{
        if(this.state.selectedDepatureTime === ''){
            this.alertToast('PLEASE SELECT DEPARTURE TIME');
-       }else if(this.state.notiftyTime === ''){
+       }else if(this.state.notiftyTime === 0){
            this.alertToast('PLEASE PUT WHEN YOU WANT TO BE NOTIFIED');
        }else if(this.state.phoneNumber === 0){
            this.alertToast('PLEASE ENTER YOUR PHONE NUMBER')
@@ -83,7 +83,7 @@ class Form extends Component {
                        </Input>
                    </Col>
                     <Col m={6} s={12} style={{marginBottom: '30px'}}>
-                        <Input s={6} type={'number'} label="NOTIFICATION TIME" value={'30'} onKeyUp={this.handleNotifyTime}/>
+                        <Input s={6} type={'number'} label="NOTIFICATION TIME" onKeyUp={this.handleNotifyTime}/>
                         <Input s={6} type='select' onChange={this.handleTimeInc}>
                             <option value='min'> MIN </option>
                             <option value='hour'> HOUR </option>

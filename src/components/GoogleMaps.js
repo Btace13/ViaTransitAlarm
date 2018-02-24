@@ -13,6 +13,7 @@ class Map extends Component {
 
     }
     componentDidMount() {
+        let _this = this;
         function initMap() {
             let sa = { lat: 29.424065, lng: -98.48891 };
             let map = new google.maps.Map(document.getElementById("map"), {
@@ -44,7 +45,6 @@ class Map extends Component {
                     position: { lat: 29.422739, lng: -98.483171 }
                 }
             ];
-
             markers.forEach(e => {
                 let marker = new google.maps.Marker({
                     position: e.position,
@@ -54,7 +54,8 @@ class Map extends Component {
                 });
 
                 marker.addListener("click", () => {
-                    alert(marker.getTitle());
+                    _this.setState({selectedStop: marker.getTitle()});
+                    _this.props.selectStop(_this.state.selectedStop);
                 });
             });
 
@@ -97,7 +98,7 @@ class Map extends Component {
             <div>
                 <div style={styles} id="map" />
                 <div className="container">
-                    <p className={'flow-text left'} style={{marginBottom: 0, paddingBottom:0}}>BUS STOP: 8907</p>
+                    <p className={'flow-text left'} style={{marginBottom: 0, paddingBottom:0}}>{`BUS STOP: ${this.state.selectedStop}`}</p>
                 </div>
             </div>
         );
