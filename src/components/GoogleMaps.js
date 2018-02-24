@@ -1,31 +1,30 @@
 /*global google*/
 
-
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 class Map extends Component {
-    componentDidMount(){
+    componentDidMount() {
         function initMap() {
-            let uluru = {lat: -25.363, lng: 131.044};
-            let map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 4,
-                center: uluru
+            let sa = { lat: 29.424065, lng: -98.48891 };
+            let map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 17,
+                center: sa
             });
             let marker = new google.maps.Marker({
-                position: uluru,
+                position: sa,
                 map: map
             });
         }
-        initMap()
+        initMap();
     }
     render() {
         let styles = {
-            height: '50vh',
-        width: '100%'
+            height: "50vh",
+            width: "100%"
         };
         return (
             <div>
-                <div style={styles} id="map"></div>
+                <div style={styles} id="map" />
             </div>
         );
     }
