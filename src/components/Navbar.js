@@ -8,7 +8,7 @@ class Navigation extends Component {
             background: '#e51937'
         };
         return (
-            <Navbar brand='VIA Transit' style={styles}/>
+            <Navbar brand='VIA Transit Alarm' style={styles}/>
         );
     }
 }

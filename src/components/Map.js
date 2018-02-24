@@ -1,6 +1,7 @@
 /*global mapboxgl*/
 
 import React, { Component } from 'react';
+import {Tabs, Tab} from 'react-materialize';
 
 mapboxgl.accessToken = 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4M29iazA2Z2gycXA4N2pmbDZmangifQ.-g_vE53SD2WrJ6tFX7QHmA';
 
@@ -11,7 +12,7 @@ export default class Map extends Component {
     this.state = {
       lng: -98.5061646,
       lat: 29.429095,
-      zoom: 8
+      zoom: 12
     };
   }
 
@@ -49,6 +50,10 @@ export default class Map extends Component {
           <div>{`Longitude: ${lng} Latitude: ${lat} Zoom: ${zoom}`}</div>
         </div>
         <div ref={el => this.mapContainer = el} className="absolute top left bottom" style={styles} />
+          <Tabs>
+              <Tab title="Inbound" active>Inbound</Tab>
+              <Tab title="Outbound">Outbound</Tab>
+          </Tabs>
       </div>
     );
   }
