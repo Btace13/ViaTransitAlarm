@@ -5,6 +5,13 @@ import stop from ".././assets/stop.svg";
 import current from ".././assets/current.png";
 
 class Map extends Component {
+    constructor(){
+        super();
+        this.state = {
+            selectedStop: ''
+    }
+
+    }
     componentDidMount() {
         function initMap() {
             let sa = { lat: 29.424065, lng: -98.48891 };
@@ -22,6 +29,7 @@ class Map extends Component {
             //     map: map,
             //     icon: stop
             // });
+
             let markers = [
                 {
                     stopId: "59886",
@@ -61,16 +69,36 @@ class Map extends Component {
                 }
             });
         }
+
         initMap();
     }
+
     render() {
         let styles = {
             height: "50vh",
             width: "100%"
         };
+        // let info = {
+        //   height: '30px',
+        //   width: '200px',
+        //   position: 'absolute',
+        //   top: '50px',
+        //     right: 0,
+        //     background: '#e51937',
+        //     zIndex: 999,
+        //     boxShadow: '1px 1px 0px 1px #555',
+        //     display: 'flex',
+        //     justifyContent: 'center',
+        //     alignItems: 'center',
+        //     borderRadius: '0px 0px 10px  10px',
+        //     color: "white"
+        // };
         return (
             <div>
                 <div style={styles} id="map" />
+                <div className="container">
+                    <p className={'flow-text left'} style={{marginBottom: 0, paddingBottom:0}}>BUS STOP: 8907</p>
+                </div>
             </div>
         );
     }
