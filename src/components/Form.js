@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Col, Row, Input, Button} from 'react-materialize';
+import {Col, Row, Input, Button, Tab, Tabs} from 'react-materialize';
 import './css/form.css';
 
 
@@ -13,6 +13,10 @@ class Form extends Component {
         };
         return (
             <div className={'container'}>
+                <Tabs className={'switchTab'}>
+                    <Tab title="Inbound" active></Tab>
+                    <Tab title="Outbound"></Tab>
+                </Tabs>
                 <Row>
                    <Col style={styles} m={6} s={12}>
                        <Input s={12} type='select' label="CHOOSE DEPARTURE TIME">

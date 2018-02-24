@@ -22,3 +22,6 @@ label{
 .dropdown-content li>a, .dropdown-content li>span{
     color: #e51937;
 }
+.switchTab{
+    margin-bottom: 30px;
+}

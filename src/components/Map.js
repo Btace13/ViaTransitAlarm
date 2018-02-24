@@ -69,10 +69,6 @@ export default class Map extends Component {
                     <div>{`Longitude: ${lng} Latitude: ${lat} Zoom: ${zoom}`}</div>
                 </div>
                 <div ref={el => this.mapContainer = el} className="absolute top left bottom" style={styles} />
-                <Tabs>
-                    <Tab title="Inbound" active></Tab>
-                    <Tab title="Outbound"></Tab>
-                </Tabs>
             </div>
         );
     }
