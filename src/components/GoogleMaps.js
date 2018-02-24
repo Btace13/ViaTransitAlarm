@@ -16,7 +16,7 @@ class Map extends Component {
                 map: map
             });
         }
-        initMap();
+        initMap()
     }
     render() {
         let styles = {

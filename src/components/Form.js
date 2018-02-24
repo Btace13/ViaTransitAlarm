@@ -25,11 +25,11 @@ class Form extends Component {
                            <option value='3'>7:30PM</option>
                        </Input>
                    </Col>
-                    <Col style={styles} m={6} s={12}>
-                        <Input s={12} type='select' label="CHOOSE NOTIFICATION TIME">
-                            <option value='1'>30 MIN BEFORE</option>
-                            <option value='2'>1 HOUR BEFORE</option>
-                            <option value='3'>1 HOUR 30MIN BEFORE</option>
+                    <Col m={6} s={12} style={{marginBottom: '30px'}}>
+                        <Input s={6} type={'number'} label="NOTIFICATION TIME"/>
+                        <Input s={6} type='select'>
+                            <option value='1'> MIN </option>
+                            <option value='2'> HOUR </option>
                         </Input>
                     </Col>
                     <Col style={styles} m={6} s={12} className={'centered'}>
