@@ -1,8 +1,9 @@
-body {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
-}
 .tabs .tab a{
   color: #e51937;
+}
+a.mapboxgl-ctrl-logo, .mapboxgl-ctrl.mapboxgl-ctrl-attrib{
+    display: none;
+}
+nav ul, nav .button-collapse i {
+    display: none;
 }
