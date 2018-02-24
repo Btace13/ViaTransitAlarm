@@ -10,9 +10,18 @@ export default class Map extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      lng: -98.5061646,
-      lat: 29.429095,
-      zoom: 12
+    //   lng: -98.5061646,
+    //   lat: 29.429095,
+        lng: -98.48891,
+        lat: 29.424065,
+      zoom: 16,
+      image: {
+          type: "image",
+          url: "",
+          coordinates: [
+              [-98.48891, 29.424065]
+          ]
+      }
     };
   }
 
@@ -51,8 +60,8 @@ export default class Map extends Component {
         </div>
         <div ref={el => this.mapContainer = el} className="absolute top left bottom" style={styles} />
           <Tabs>
-              <Tab title="Inbound" active>Inbound</Tab>
-              <Tab title="Outbound">Outbound</Tab>
+              <Tab title="Inbound" active></Tab>
+              <Tab title="Outbound"></Tab>
           </Tabs>
       </div>
     );
