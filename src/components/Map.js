@@ -22,7 +22,7 @@ export default class Map extends Component {
       container: this.mapContainer,
       style: 'mapbox://styles/mapbox/streets-v9',
       center: [lng, lat],
-      zoom
+      zoom,
     });
 		
      map.on('move', () => {
@@ -38,13 +38,17 @@ export default class Map extends Component {
 
   render() {
     const { lng, lat, zoom } = this.state;
-
+    const styles = {
+      position: "static",
+      height: '50vh',
+      width: '100%'
+    };
     return (
       <div>
         <div className="inline-block absolute top left mt12 ml12 bg-darken75 color-white z1 py6 px12 round-full txt-s txt-bold">
           <div>{`Longitude: ${lng} Latitude: ${lat} Zoom: ${zoom}`}</div>
         </div>
-        <div ref={el => this.mapContainer = el} className="absolute top left bottom" />
+        <div ref={el => this.mapContainer = el} className="absolute top left bottom" style={styles} />
       </div>
     );
   }
