@@ -25,8 +25,7 @@ class Form extends Component {
             justifyContent:'center',
         };
         let handleChangeDirection = (event) => {
-            this.setState({inBound: event.target.title});
-            console.log(this.state.inBound);
+            this.setState({inBound: event.target.id === 'Inbound' ? true: false});
         };
         let handleSelectedTime = (event) => {
             this.setState({selectedDepatureTime: event.target.value});
@@ -48,10 +47,14 @@ class Form extends Component {
         };
         return (
             <div className={'container'}>
-                <Tabs className={'switchTab'}>
-                    <Tab title="Inbound" active onClick={handleChangeDirection}></Tab>
-                    <Tab title="Outbound" onClick={handleChangeDirection}></Tab>
-                </Tabs>
+                {/*<Tabs className={'switchTab'}>*/}
+                    {/*<Tab title="Inbound" active onChange={handleChangeDirection}></Tab>*/}
+                    {/*<Tab title="Outbound" onChange={handleChangeDirection}></Tab>*/}
+                {/*</Tabs>*/}
+                <ul className="tabs" style={{marginBottom: '30px'}}>
+                <li className="tab"><a id={'Inbound'} onClick={handleChangeDirection}>Inbound</a></li>
+                <li className="tab"><a id={'Outbound'} className="active" onClick={handleChangeDirection}>Outbound</a></li>
+            </ul>
                 <Row>
                    <Col style={styles} m={6} s={12}>
                        <Input s={12} type='select' label="CHOOSE DEPARTURE TIME" onChange={handleSelectedTime}>
