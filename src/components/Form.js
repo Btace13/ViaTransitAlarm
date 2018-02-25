@@ -81,7 +81,7 @@ class Form extends Component {
                    <Col style={styles} m={6} s={12}>
                        <Input disabled={this.props.isDisabled ? "disabled": ""} s={12} type='select' label="CHOOSE DEPARTURE TIME" onChange={this.handleSelectedTime}>
                            {
-                               times.map(e => <option value={e}>{e}</option>)
+                               times.map((e, index) => <option key={index} value={e}>{e}</option>)
                            }
                        </Input>
                    </Col>
