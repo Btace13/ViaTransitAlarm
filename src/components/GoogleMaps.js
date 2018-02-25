@@ -2,12 +2,12 @@
 
 import React, { Component } from "react";
 import stop from ".././assets/stop.svg";
-import inactive from '.././assets/inactive_stop.png';
+import inactive from ".././assets/inactive_stop.png";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import Form from "../components/Form";
 import current from ".././assets/current.png";
-import moment from 'moment';
+import moment from "moment";
 
 class Map extends Component {
     map = {};
@@ -40,29 +40,27 @@ class Map extends Component {
 
         //FOREACH START
         stops.forEach(e => {
-
-
             let marker = new google.maps.Marker({
                 position: {
                     lat: e.Latitude,
                     lng: e.Longitude
                 },
                 map: this.map,
-                icon: e.IsActive ? stop: inactive,
+                icon: e.IsActive ? stop : inactive,
                 title: e.stop_id
             });
 
-            if(e.IsActive){
+            if (e.IsActive) {
                 marker.addListener("click", () => {
                     this.setState({ selectedStop: marker.getTitle() });
                     toast.info("BUS STOP: " + marker.getTitle());
                     this.enableForm();
                     this.getTimes();
-                })
-            } else{
+                });
+            } else {
                 marker.addListener("click", () => {
                     toast.error("INACTIVE");
-                })
+                });
             }
         });
         //end ForEach
@@ -88,15 +86,19 @@ class Map extends Component {
     }
 
     getTimes = () => {
-        axios.get(`https://joelgilbert.io/buses/GetUpdatedDepartureTimes?routeId=17&stopId=${this.state.selectedStop}&currentTime=12:00`)
+        axios
+            .get(
+                `https://joelgilbert.io/buses/GetUpdatedDepartureTimes?routeId=17&stopId=${
+                    this.state.selectedStop
+                }&currentTime=12:00`
+            )
             .then(response => {
                 console.log(response.data[0]);
                 this.setState({
                     departureTimes: response.data,
                     selectedDepartureTime: response.data[0]
                 });
-
-            })
+            });
     };
 
     getOutBound = () => {
@@ -128,6 +130,8 @@ class Map extends Component {
             textOrCall: value.textOrCall,
             phoneNumber: value.phoneNumber
         });
+
+        this.sendData();
     };
 
     updateMap = () => {
@@ -164,23 +168,28 @@ class Map extends Component {
     };
 
     sendData = () => {
-      console.log(this.state);
+        console.log(this.state);
 
         let data = this.state;
 
-        let convertedTime = moment(data.selectedDepartureTime).format('H:MM');
+        let convertedTime = moment(data.selectedDepartureTime).format("H:MM");
         console.log(data.selectedDepartureTime);
         console.log(convertedTime);
 
-        let convertedNotifyType = data.textOrCall ? 0: 1 ;
+        let convertedNotifyType = data.textOrCall ? 0 : 1;
 
-        let dataString = `https://joelgilbert.io/buses/CreateNotification?routeId=17&stopId=${data.selectedStop}&phone=1${data.phoneNumber}&depart=${convertedTime}&notifyTime=${data.notifyTime}&notifyType=${convertedNotifyType}&notifyTimeLabel=${data.selectedTimeInc}`;
+        let dataString = `https://joelgilbert.io/buses/CreateNotification?routeId=17&stopId=${
+            data.selectedStop
+        }&phone=1${data.phoneNumber}&depart=${convertedTime}&notifyTime=${
+            data.notifyTime
+        }&notifyType=${convertedNotifyType}&notifyTimeLabel=${
+            data.selectedTimeInc
+        }`;
 
         console.log(dataString);
-        axios.get(dataString)
-            .then(response => {
-                console.log(response)
-            });
+        axios.get(dataString).then(response => {
+            console.log(response);
+        });
         // departureTimes:
         //     Array[11]
         // direction:
@@ -202,18 +211,16 @@ class Map extends Component {
         //
         // textOrCall:
         //     true
-
     };
     render() {
         let styles = {
             height: "40vh",
             width: "100%",
-            transitionDuration: '1s'
-
+            transitionDuration: "1s"
         };
         const beginStyles = {
-          height: '79vh',
-            width: '100%'
+            height: "79vh",
+            width: "100%"
         };
         // let info = {
         //   height: '30px',
@@ -232,7 +239,10 @@ class Map extends Component {
         // };
         return (
             <div>
-                <div style={this.state.isDisabled ? beginStyles: styles} id="map" />
+                <div
+                    style={this.state.isDisabled ? beginStyles : styles}
+                    id="map"
+                />
                 <div className="container">
                     <ul className="tabs" style={{ marginBottom: "30px" }}>
                         <li className="tab">
