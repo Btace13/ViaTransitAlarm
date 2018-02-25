@@ -212,7 +212,7 @@ class Map extends Component {
 
         };
         const beginStyles = {
-          height: '75vh',
+          height: '79vh',
             width: '100%'
         };
         // let info = {
