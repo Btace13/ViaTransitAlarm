@@ -4,15 +4,22 @@ import React, { Component } from "react";
 import stop from ".././assets/stop.svg";
 import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
-
+import Form from '../components/Form';
+import current from ".././assets/current.png";
 
 class Map extends Component {
     constructor() {
         super();
         this.state = {
-            selectedStop: "",
-            stops: []
-        };
+            direction: 'Inbound',
+            departureTimes: [],
+            selectedDepatureTime: '',
+            notiftyTime: 0,
+            selectedTimeInc: '',
+            textOrCall: true,
+            phoneNumber: 0,
+            isDisabled: true
+        }
     }
 
     initMap() {
@@ -38,14 +45,23 @@ class Map extends Component {
             marker.addListener("click", () => {
                 this.setState({ selectedStop: marker.getTitle() });
                 toast.warn('BUS STOP: ' + marker.getTitle());
-                this.props.selectStop(this.state.selectedStop);
-                this.props.enableForm();
+                this.enableForm();
             });
+        });
+        new google.maps.Marker({
+            position: sa,
+            height: 20,
+            width: 20,
+            map: map,
+            icon: {
+                url: current,
+                scaledSize: new google.maps.Size(70, 70) // scaled size
+            }
         });
     }
 
     componentWillMount() {
-            this.props.direction === 'Inbound' ? this.getInBound(): this.getOutBound()
+            this.state.direction === 'Inbound' ? this.getInBound(): this.getOutBound()
     }
 
 
@@ -72,8 +88,44 @@ class Map extends Component {
             });
     };
 
+    updateParent = (value) => {
+        this.setState({
+            Inbound: value.Inbound,
+            selectedDepatureTime: value.selectedDepatureTime,
+            notiftyTime: value.notiftyTime,
+            selectedTimeInc: value.selectedTimeInc,
+            textOrCall: value.textOrCall,
+            phoneNumber: value.phoneNumber
+
+        });
+    };
+
     updateMap = () => {
-        this.props.direction ? this.getInBound(): this.getOutBound()
+        this.state.direction === 'Inbound' ? this.getInBound(): this.getOutBound()
+    };
+
+    enableForm = () => {
+        this.setState({
+            isDisabled: false
+        })
+    };
+
+    changeDirection = (direction) => {
+        this.setState({
+            direction: direction
+        });
+
+        console.log(this.state.direction);
+
+        this.updateMap();
+    };
+
+    handleChangeDirection = (event) => {
+        console.log(event.target.id);
+        this.setState({
+            direction: event.target.id
+        });
+        this.updateMap();
     };
     render() {
         let styles = {
@@ -98,6 +150,13 @@ class Map extends Component {
         return (
             <div>
                 <div style={styles} id="map" />
+                <div className="container">
+                    <ul className="tabs" style={{marginBottom: '30px'}}>
+                        <li className="tab"><a onClick={this.handleChangeDirection} id={'Inbound'} className="active">Inbound</a></li>
+                        <li className="tab"><a onClick={this.handleChangeDirection} id={'Outbound'} >Outbound</a></li>
+                    </ul>
+                </div>
+                <Form  changeDirection={this.changeDirection} isDisabled={this.state.isDisabled} updateParent={this.updateParent}/>
                 <ToastContainer />
             </div>
         );

@@ -8,7 +8,6 @@ class Form extends Component {
     constructor(){
         super();
         this.state = {
-            Inbound: true,
             stopSelected: 0,
             selectedDepatureTime: '',
             notiftyTime: 0,
@@ -18,14 +17,6 @@ class Form extends Component {
             isDisabled: true
         }
     }
-     handleChangeDirection = (event) => {
-        console.log(event.target.id);
-         this.setState({Inbound: event.target.id});
-        this.props.changeDirection(event.target.id);
-    };
-    updateParent = (e) => {
-        this.props.updateParent(e);
-    };
     handleSelectedTime = (event) => {
         this.setState({selectedDepatureTime: event.target.value});
     };
@@ -41,7 +32,7 @@ class Form extends Component {
      handlePhoneNumber = (event) => {
         this.setState({phoneNumber: event.target.value});
     };
-     displayState = ()=>{
+    updateParent= () => {
     this.props.updateParent(this.state);
          this.validate();
     };
@@ -69,10 +60,6 @@ class Form extends Component {
         };
         return (
             <div className={'container'}>
-                <ul className="tabs" style={{marginBottom: '30px'}}>
-                <li className="tab"><a onClick={this.handleChangeDirection} id={'Inbound'} className="active">Inbound</a></li>
-                <li className="tab"><a onClick={this.handleChangeDirection} id={'Outbound'} >Outbound</a></li>
-            </ul>
                 <Row>
                    <Col style={styles} m={6} s={12}>
                        <Input disabled={this.props.isDisabled ? "disabled": ""} s={12} type='select' label="CHOOSE DEPARTURE TIME" onChange={this.handleSelectedTime}>
@@ -97,7 +84,7 @@ class Form extends Component {
                         <p>PLEASE ENTER PHONE NUMBER</p>
                         <Input  disabled={this.props.isDisabled ? "disabled": ""} label="Telephone" validate type='tel' onKeyUp={this.handlePhoneNumber}></Input>
                     </Col>
-                    <Button disabled={this.props.isDisabled} onClick={this.displayState}>Save</Button>
+                    <Button disabled={this.props.isDisabled} onClick={this.updateParent}>Save</Button>
                     <ToastContainer />
                 </Row>
             </div>
