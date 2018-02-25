@@ -21,7 +21,7 @@ class Map extends Component {
             direction: "Inbound",
             departureTimes: [],
             selectedDepartureTime: "",
-            notiftyTime: 0,
+            notifyTime: 0,
             selectedTimeInc: "",
             textOrCall: true,
             phoneNumber: 0,
@@ -90,8 +90,10 @@ class Map extends Component {
     getTimes = () => {
         axios.get(`https://joelgilbert.io/buses/GetUpdatedDepartureTimes?routeId=17&stopId=${this.state.selectedStop}&currentTime=12:00`)
             .then(response => {
+                console.log(response.data[0]);
                 this.setState({
-                    departureTimes: response.data
+                    departureTimes: response.data,
+                    selectedDepartureTime: response.data[0]
                 });
 
             })
@@ -121,7 +123,7 @@ class Map extends Component {
         this.setState({
             Inbound: value.Inbound,
             selectedDepartureTime: value.selectedDepartureTime,
-            notiftyTime: value.notiftyTime,
+            notifyTime: value.notifyTime,
             selectedTimeInc: value.selectedTimeInc,
             textOrCall: value.textOrCall,
             phoneNumber: value.phoneNumber
@@ -170,13 +172,7 @@ class Map extends Component {
 
         let convertedNotifyType = data.textOrCall ? 0: 1 ;
 
-        let dataString = `https://joelgilbert.io/buses/CreateNotification?routeId=17
-                            &stopId=${data.selectedStop}
-                            &phone=+1${data.phoneNumber}
-                            &depart=${convertedTime}
-                            &notifyTime=${data.notiftyTime}
-                            &notifyType=${convertedNotifyType}
-                            &notifyTimeLabel=${data.selectedTimeInc}`;
+        let dataString = `https://joelgilbert.io/buses/CreateNotification?routeId=17&stopId=${data.selectedStop}&phone=+1${data.phoneNumber}&depart=${convertedTime}&notifyTime=${data.notifyTime}&notifyType=${convertedNotifyType}&notifyTimeLabel=${data.selectedTimeInc}`;
 
         console.log(dataString);
         axios.get(dataString)

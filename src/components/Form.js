@@ -10,22 +10,22 @@ class Form extends Component {
     constructor(){
         super();
         this.state = {
-            Inbound: true,
             stopSelected: 0,
             selectedDepartureTime: '',
-            notiftyTime: 0,
-            selectedTimeInc: '',
+            notifyTime: 0,
+            selectedTimeInc: 'min',
             textOrCall: true,
             phoneNumber: 0,
             isDisabled: true
         }
     }
+
     handleSelectedTime = (event) => {
         this.setState({selectedDepartureTime: event.target.value});
         this.props.updateParent(this.state);
     };
      handleNotifyTime = (event) => {
-        this.setState({notiftyTime: event.target.value});
+        this.setState({notifyTime: event.target.value});
          this.props.updateParent(this.state);
     };
      handleTimeInc = (event) => {
@@ -47,7 +47,7 @@ class Form extends Component {
      validate = () =>{
        if(this.state.selectedDepartureTime === ''){
            this.alertToast('PLEASE SELECT DEPARTURE TIME');
-       }else if(this.state.notiftyTime === 0) {
+       }else if(this.state.notifyTime === 0) {
            this.alertToast('PLEASE PUT WHEN YOU WANT TO BE NOTIFIED');
        } else if(this.state.selectedTimeInc === ''){
                this.alertToast('PLEASE PUT WHEN YOU WANT TO BE NOTIFIED');
@@ -85,7 +85,7 @@ class Form extends Component {
                        </Input>
                    </Col>
                     <Col m={6} s={12} style={{marginBottom: '30px'}}>
-                        <Input disabled={this.props.isDisabled} s={6} type={'number'} label="NOTIFICATION TIME" onKeyUp={this.handleNotifyTime}/>
+                        <Input disabled={this.props.isDisabled} s={6} type={'number'} label="NOTIFICATION TIME" onChange={this.handleNotifyTime}/>
                         <Input disabled={this.props.isDisabled} s={6} type='select' onChange={this.handleTimeInc} defaultValue={'min'}>
                             <option value='min'> MIN </option>
                             <option value='hour'> HOUR </option>
