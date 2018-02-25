@@ -2,7 +2,6 @@
 
 import React, { Component } from "react";
 import stop from ".././assets/stop.svg";
-import current from ".././assets/current.png";
 import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 
@@ -24,9 +23,7 @@ class Map extends Component {
         });
 
         let stops = this.state.stops;
-        console.log("stops:", stops);
         stops.forEach(e => {
-            console.log(e);
 
             let marker = new google.maps.Marker({
                 position: {
@@ -45,17 +42,6 @@ class Map extends Component {
                 this.props.enableForm();
             });
         });
-
-        let currentLocation = new google.maps.Marker({
-            position: sa,
-            height: 20,
-            width: 20,
-            map: map,
-            icon: {
-                url: current,
-                scaledSize: new google.maps.Size(70, 70) // scaled size
-            }
-        });
     }
 
     componentWillMount() {
@@ -71,7 +57,6 @@ class Map extends Component {
                 this.setState({
                     stops: response.data
                 });
-                console.log(JSON.stringify(this.state.stops, null, 4));
 
                 this.initMap();
             });
@@ -82,14 +67,13 @@ class Map extends Component {
                 this.setState({
                     stops: response.data
                 });
-                console.log(JSON.stringify(this.state.stops, null, 4));
 
                 this.initMap();
             });
     };
 
     updateMap = () => {
-        this.props.direction === 'Inbound' ? this.getInBound(): this.getOutBound()
+        this.props.direction ? this.getInBound(): this.getOutBound()
     };
     render() {
         let styles = {

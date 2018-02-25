@@ -8,7 +8,7 @@ class App extends Component {
     constructor(){
         super();
         this.state = {
-            Inbound: 'Inbound',
+            Inbound: true,
             stopSelected: 0,
             departureTimes: [],
             selectedDepatureTime: '',

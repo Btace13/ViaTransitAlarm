@@ -8,7 +8,7 @@ class Form extends Component {
     constructor(){
         super();
         this.state = {
-            Inbound: 'Inbound',
+            Inbound: true,
             stopSelected: 0,
             selectedDepatureTime: '',
             notiftyTime: 0,
@@ -19,7 +19,8 @@ class Form extends Component {
         }
     }
      handleChangeDirection = (event) => {
-        this.setState({Inbound: event.target.id});
+        console.log(event.target.id);
+         this.setState({Inbound: event.target.id});
         this.props.changeDirection(event.target.id);
     };
     updateParent = (e) => {
@@ -68,13 +69,9 @@ class Form extends Component {
         };
         return (
             <div className={'container'}>
-                {/*<Tabs className={'switchTab'}>*/}
-                    {/*<Tab title="Inbound" active onChange={handleChangeDirection}></Tab>*/}
-                    {/*<Tab title="Outbound" onChange={handleChangeDirection}></Tab>*/}
-                {/*</Tabs>*/}
                 <ul className="tabs" style={{marginBottom: '30px'}}>
                 <li className="tab"><a onClick={this.handleChangeDirection} id={'Inbound'} className="active">Inbound</a></li>
-                <li className="tab"><a onClick={this.handleChangeDirection} id={'Outbound'}>Outbound</a></li>
+                <li className="tab"><a onClick={this.handleChangeDirection} id={'Outbound'} >Outbound</a></li>
             </ul>
                 <Row>
                    <Col style={styles} m={6} s={12}>
@@ -85,8 +82,8 @@ class Form extends Component {
                        </Input>
                    </Col>
                     <Col m={6} s={12} style={{marginBottom: '30px'}}>
-                        <Input  disabled={this.props.isDisabled ? "disabled": ""} s={6} type={'number'} label="NOTIFICATION TIME" onKeyUp={this.handleNotifyTime}/>
-                        <Input  disabled={this.props.isDisabled ? "disabled": ""} s={6} type='select' onChange={this.handleTimeInc}>
+                        <Input disabled={this.props.isDisabled} s={6} type={'number'} label="NOTIFICATION TIME" onKeyUp={this.handleNotifyTime}/>
+                        <Input disabled={this.props.isDisabled} s={6} type='select' onChange={this.handleTimeInc}>
                             <option value='min'> MIN </option>
                             <option value='hour'> HOUR </option>
                         </Input>
@@ -100,7 +97,7 @@ class Form extends Component {
                         <p>PLEASE ENTER PHONE NUMBER</p>
                         <Input  disabled={this.props.isDisabled ? "disabled": ""} label="Telephone" validate type='tel' onKeyUp={this.handlePhoneNumber}></Input>
                     </Col>
-                    <Button  disabled={this.props.isDisabled ? "disabled": ""} onClick={this.displayState}>Save</Button>
+                    <Button disabled={this.props.isDisabled} onClick={this.displayState}>Save</Button>
                     <ToastContainer />
                 </Row>
             </div>
