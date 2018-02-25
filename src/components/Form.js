@@ -43,7 +43,6 @@ class Form extends Component {
     updateParent= () => {
         this.props.updateParent(this.state);
         this.props.sendData();
-        this.validate();
     };
      validate = () =>{
        if(this.state.selectedDepartureTime === ''){
@@ -55,7 +54,7 @@ class Form extends Component {
        }else if(this.state.phoneNumber === 0){
            this.alertToast('PLEASE ENTER YOUR PHONE NUMBER')
        }else{
-           this.updateParent()
+           this.updateParent();
            toast.success('NOTIFICATION HAS BEEN SAVED')
        }
      };

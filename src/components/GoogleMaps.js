@@ -55,7 +55,7 @@ class Map extends Component {
             if(e.IsActive){
                 marker.addListener("click", () => {
                     this.setState({ selectedStop: marker.getTitle() });
-                    toast.warn("BUS STOP: " + marker.getTitle());
+                    toast.info("BUS STOP: " + marker.getTitle());
                     this.enableForm();
                     this.getTimes();
                 })
