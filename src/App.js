@@ -47,11 +47,11 @@ class App extends Component {
       this.setState({
           Inbound: direction
       });
-        this.updateMap();
+      this.updateMap();
     };
 
     updateMap = () => {
-        this.refs.child.updateMap(this.state.Inbound)
+      this.refs.child.updateMap()
     };
 
 

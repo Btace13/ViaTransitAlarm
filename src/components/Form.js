@@ -20,7 +20,7 @@ class Form extends Component {
     }
      handleChangeDirection = (event) => {
         this.setState({Inbound: event.target.id});
-        this.props.changeDirection(this.state.Inbound);
+        this.props.changeDirection(event.target.id);
     };
     updateParent = (e) => {
         this.props.updateParent(e);
