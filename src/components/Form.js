@@ -8,7 +8,7 @@ class Form extends Component {
     constructor(){
         super();
         this.state = {
-            inBound: 'Inbound',
+            Inbound: 'Inbound',
             stopSelected: 0,
             selectedDepatureTime: '',
             notiftyTime: 0,
@@ -19,8 +19,8 @@ class Form extends Component {
         }
     }
      handleChangeDirection = (event) => {
-        this.setState({inBound: event.target.id});
-        this.props.changeDirection(this.state.inBound);
+        this.setState({Inbound: event.target.id});
+        this.props.changeDirection(this.state.Inbound);
     };
     updateParent = (e) => {
         this.props.updateParent(e);

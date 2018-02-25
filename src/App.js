@@ -8,7 +8,7 @@ class App extends Component {
     constructor(){
         super();
         this.state = {
-            inBound: 'InBound',
+            Inbound: 'Inbound',
             stopSelected: 0,
             departureTimes: [],
             selectedDepatureTime: '',
@@ -21,7 +21,7 @@ class App extends Component {
     }
     getDataFromChild = (value) => {
         this.setState({
-            inBound: value.inBound,
+            Inbound: value.Inbound,
             //stopSelected: value.stopSelected,
             selectedDepatureTime: value.selectedDepatureTime,
             notiftyTime: value.notiftyTime,
@@ -45,13 +45,13 @@ class App extends Component {
 
     changeDirection = (direction) => {
       this.setState({
-          inBound: direction
+          Inbound: direction
       });
         this.updateMap();
     };
 
     updateMap = () => {
-        this.refs.child.updateMap(this.state.inBound)
+        this.refs.child.updateMap(this.state.Inbound)
     };
 
 
@@ -59,7 +59,7 @@ class App extends Component {
     return (
       <div>
           <Navbar/>
-          <GoogleMap ref={'child'} direction={this.state.inBound} enableForm={this.enableForm} selectStop={this.getStop}/>
+          <GoogleMap ref={'child'} direction={this.state.Inbound} enableForm={this.enableForm} selectStop={this.getStop}/>
           <Form changeDirection={this.changeDirection} isDisabled={this.state.isDisabled} updateParent={this.getDataFromChild}/>
       </div>
     );

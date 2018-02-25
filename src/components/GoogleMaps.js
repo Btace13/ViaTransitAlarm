@@ -13,7 +13,7 @@ class Map extends Component {
         this.state = {
             selectedStop: "",
             stops: [],
-            inBound: 'Inbound'
+            Inbound: 'Inbound'
         };
     }
 
@@ -61,7 +61,7 @@ class Map extends Component {
 
     componentWillMount() {
         {
-            this.state.inBound === 'InBound' ? this.getInBound(): this.getOutBound()
+            this.state.Inbound === 'Inbound' ? this.getInBound(): this.getOutBound()
         }
 
     }
@@ -94,10 +94,10 @@ class Map extends Component {
 
     updateMap = (direction) => {
         this.setState({
-            inBound: direction
+            Inbound: direction
         });
         {
-            this.state.direction === 'InBound' ? this.getInBound(): this.getOutBound()
+            this.state.direction === 'Inbound' ? this.getInBound(): this.getOutBound()
         }
     };
     render() {
