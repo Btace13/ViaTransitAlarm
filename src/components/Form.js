@@ -14,11 +14,13 @@ class Form extends Component {
             notiftyTime: 0,
             selectedTimeInc: '',
             textOrCall: true,
-            phoneNumber: 0
+            phoneNumber: 0,
+            isDisabled: true
         }
     }
      handleChangeDirection = (event) => {
         this.setState({inBound: event.target.id});
+        this.props.changeDirection(this.state.inBound);
     };
     updateParent = (e) => {
         this.props.updateParent(e);
@@ -76,29 +78,29 @@ class Form extends Component {
             </ul>
                 <Row>
                    <Col style={styles} m={6} s={12}>
-                       <Input s={12} type='select' label="CHOOSE DEPARTURE TIME" onChange={this.handleSelectedTime}>
+                       <Input disabled={this.props.isDisabled ? "disabled": ""} s={12} type='select' label="CHOOSE DEPARTURE TIME" onChange={this.handleSelectedTime}>
                            <option value='4:00'>4:00PM</option>
                            <option value='6:00'>6:00PM</option>
                            <option value='7:30'>7:30PM</option>
                        </Input>
                    </Col>
                     <Col m={6} s={12} style={{marginBottom: '30px'}}>
-                        <Input s={6} type={'number'} label="NOTIFICATION TIME" onKeyUp={this.handleNotifyTime}/>
-                        <Input s={6} type='select' onChange={this.handleTimeInc}>
+                        <Input  disabled={this.props.isDisabled ? "disabled": ""} s={6} type={'number'} label="NOTIFICATION TIME" onKeyUp={this.handleNotifyTime}/>
+                        <Input  disabled={this.props.isDisabled ? "disabled": ""} s={6} type='select' onChange={this.handleTimeInc}>
                             <option value='min'> MIN </option>
                             <option value='hour'> HOUR </option>
                         </Input>
                     </Col>
                     <Col style={styles} m={6} s={12} className={'centered'}>
                         <p>WOULD YOU LIKE A CALL OR A TEXT?</p>
-                        <Input name='group1' type='radio' value='CALL' label='CALL' onClick={this.handleTextOrCall}/>
-                        <Input name='group1' type='radio' value='TEXT' label='TEXT' onClick={this.handleTextOrCall} />
+                        <Input  disabled={this.props.isDisabled ? "disabled": ""} name='group1' type='radio' value='CALL' label='CALL' onClick={this.handleTextOrCall}/>
+                        <Input  disabled={this.props.isDisabled ? "disabled": ""} name='group1' type='radio' value='TEXT' label='TEXT' onClick={this.handleTextOrCall} />
                     </Col>
                     <Col style={styles} m={6} s={12}>
                         <p>PLEASE ENTER PHONE NUMBER</p>
-                        <Input label="Telephone" validate type='tel' onKeyUp={this.handlePhoneNumber}></Input>
+                        <Input  disabled={this.props.isDisabled ? "disabled": ""} label="Telephone" validate type='tel' onKeyUp={this.handlePhoneNumber}></Input>
                     </Col>
-                    <Button onClick={this.displayState}>Save</Button>
+                    <Button  disabled={this.props.isDisabled ? "disabled": ""} onClick={this.displayState}>Save</Button>
                     <ToastContainer />
                 </Row>
             </div>

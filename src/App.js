@@ -8,14 +8,15 @@ class App extends Component {
     constructor(){
         super();
         this.state = {
-            inBound: '',
+            inBound: 'InBound',
             stopSelected: 0,
             departureTimes: [],
             selectedDepatureTime: '',
             notiftyTime: 0,
             selectedTimeInc: '',
             textOrCall: true,
-            phoneNumber: 0
+            phoneNumber: 0,
+            isDisabled: true
         }
     }
     getDataFromChild = (value) => {
@@ -35,12 +36,31 @@ class App extends Component {
             stopSelected: stop,
         });
     };
+
+    enableForm = () => {
+        this.setState({
+            isDisabled: false
+        })
+    };
+
+    changeDirection = (direction) => {
+      this.setState({
+          inBound: direction
+      });
+        this.updateMap();
+    };
+
+    updateMap = () => {
+        this.refs.child.updateMap(this.state.inBound)
+    };
+
+
   render() {
     return (
       <div>
           <Navbar/>
-          <GoogleMap selectStop={this.getStop}/>
-          <Form updateParent={this.getDataFromChild}/>
+          <GoogleMap ref={'child'} direction={this.state.inBound} enableForm={this.enableForm} selectStop={this.getStop}/>
+          <Form changeDirection={this.changeDirection} isDisabled={this.state.isDisabled} updateParent={this.getDataFromChild}/>
       </div>
     );
   }
