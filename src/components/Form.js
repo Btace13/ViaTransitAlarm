@@ -10,6 +10,7 @@ class Form extends Component {
     constructor(){
         super();
         this.state = {
+            Inbound: true,
             stopSelected: 0,
             selectedDepartureTime: '',
             notiftyTime: 0,
@@ -21,18 +22,23 @@ class Form extends Component {
     }
     handleSelectedTime = (event) => {
         this.setState({selectedDepartureTime: event.target.value});
+        this.props.updateParent(this.state);
     };
      handleNotifyTime = (event) => {
         this.setState({notiftyTime: event.target.value});
+         this.props.updateParent(this.state);
     };
      handleTimeInc = (event) => {
         this.setState({selectedTimeInc: event.target.value});
+         this.props.updateParent(this.state);
     };
      handleTextOrCall = (event) => {
         this.setState({textOrCall: event.target.value === 'TEXT' ? true : false});
+         this.props.updateParent(this.state);
     };
      handlePhoneNumber = (event) => {
         this.setState({phoneNumber: event.target.value});
+         this.props.updateParent(this.state);
     };
     updateParent= () => {
         this.props.updateParent(this.state);
@@ -49,6 +55,7 @@ class Form extends Component {
        }else if(this.state.phoneNumber === 0){
            this.alertToast('PLEASE ENTER YOUR PHONE NUMBER')
        }else{
+           this.updateParent()
            toast.success('NOTIFICATION HAS BEEN SAVED')
        }
      };
@@ -94,7 +101,7 @@ class Form extends Component {
                         <p style={this.props.isDisabled ? disabledText: {}}>PLEASE ENTER PHONE NUMBER</p>
                         <Input  disabled={this.props.isDisabled ? "disabled": ""} label="Telephone" validate type='tel' onKeyUp={this.handlePhoneNumber}></Input>
                     </Col>
-                    <Button disabled={this.props.isDisabled} onClick={this.updateParent}>Save</Button>
+                    <Button disabled={this.props.isDisabled} onClick={this.validate}>Save</Button>
                     <ToastContainer />
                 </Row>
             </div>
