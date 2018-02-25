@@ -169,10 +169,12 @@ class Map extends Component {
         let data = this.state;
 
         let convertedTime = moment(data.selectedDepartureTime).format('H:MM');
+        console.log(data.selectedDepartureTime);
+        console.log(convertedTime);
 
         let convertedNotifyType = data.textOrCall ? 0: 1 ;
 
-        let dataString = `https://joelgilbert.io/buses/CreateNotification?routeId=17&stopId=${data.selectedStop}&phone=+1${data.phoneNumber}&depart=${convertedTime}&notifyTime=${data.notifyTime}&notifyType=${convertedNotifyType}&notifyTimeLabel=${data.selectedTimeInc}`;
+        let dataString = `https://joelgilbert.io/buses/CreateNotification?routeId=17&stopId=${data.selectedStop}&phone=1${data.phoneNumber}&depart=${convertedTime}&notifyTime=${data.notifyTime}&notifyType=${convertedNotifyType}&notifyTimeLabel=${data.selectedTimeInc}`;
 
         console.log(dataString);
         axios.get(dataString)

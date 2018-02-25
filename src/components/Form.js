@@ -72,7 +72,6 @@ class Form extends Component {
         const disabledText = {
           color: '#888'
         };
-        let times = this.props.departureTimes.map(e => moment(e).format('h:mm a'));
 
         return (
             <div className={'container'}>
@@ -80,7 +79,7 @@ class Form extends Component {
                    <Col style={styles} m={6} s={12}>
                        <Input disabled={this.props.isDisabled ? "disabled": ""} s={12} type='select' label="CHOOSE DEPARTURE TIME" onChange={this.handleSelectedTime}>
                            {
-                               times.map((e, index) => <option key={index} value={e}>{e}</option>)
+                               this.props.departureTimes.map((e, index) => <option key={index} value={e}>{ moment(e).format('h:mm a')}</option>)
                            }
                        </Input>
                    </Col>
@@ -91,16 +90,16 @@ class Form extends Component {
                             <option value='hour'> HOUR </option>
                         </Input>
                     </Col>
+                    <Col style={styles} m={6} s={12}>
+                        <p style={this.props.isDisabled ? disabledText: {}}>PLEASE ENTER PHONE NUMBER</p>
+                        <Input  disabled={this.props.isDisabled ? "disabled": ""} label="Telephone" type='tel' onChange={this.handlePhoneNumber}></Input>
+                    </Col>
                     <Col style={styles} m={6} s={12} className={'centered'}>
                         <p style={this.props.isDisabled ? disabledText: {}}>WOULD YOU LIKE A CALL OR A TEXT?</p>
                         <Input  disabled={this.props.isDisabled ? "disabled": ""} name='group1' type='radio' value='CALL' label='CALL' onClick={this.handleTextOrCall}/>
                         <Input  disabled={this.props.isDisabled ? "disabled": ""} name='group1' type='radio' value='TEXT' label='TEXT' onClick={this.handleTextOrCall} />
                     </Col>
-                    <Col style={styles} m={6} s={12}>
-                        <p style={this.props.isDisabled ? disabledText: {}}>PLEASE ENTER PHONE NUMBER</p>
-                        <Input  disabled={this.props.isDisabled ? "disabled": ""} label="Telephone" validate type='tel' onKeyUp={this.handlePhoneNumber}></Input>
-                    </Col>
-                    <Button disabled={this.props.isDisabled} onClick={this.validate}>Save</Button>
+                    <Button disabled={this.props.isDisabled} onClick={this.validate}>Save Notification</Button>
                     <ToastContainer />
                 </Row>
             </div>
