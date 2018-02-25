@@ -14,8 +14,8 @@ class Map extends Component {
     INBOUND_API_URL = "https://joelgilbert.io/buses/closestops?routeid=17&longitude=-98.48891&latitude=29.424065&isOutbound=false&radius=1600";
     OUTBOUND_API_URL = "https://joelgilbert.io/buses/closestops?routeid=17&longitude=-98.48891&latitude=29.424065&isOutbound=true&radius=1600";
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             selectedStop: 0,
             direction: "Inbound",
@@ -130,8 +130,9 @@ class Map extends Component {
             textOrCall: value.textOrCall,
             phoneNumber: value.phoneNumber
         });
-
+        console.log(this.state);
         this.sendData();
+        setTimeout(() => {this.sendData()}, 1000)
     };
 
     updateMap = () => {

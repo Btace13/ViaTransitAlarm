@@ -5,8 +5,8 @@ import { ToastContainer, toast } from "react-toastify";
 import moment from "moment";
 
 class Form extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             stopSelected: 0,
             selectedDepartureTime: "",
