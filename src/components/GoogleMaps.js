@@ -132,7 +132,7 @@ class Map extends Component {
         });
         console.log(this.state);
         this.sendData();
-        setTimeout(() => {this.sendData()}, 1000)
+        setTimeout(() => {this.sendData(); window.location.reload(true);}, 1000);
     };
 
     updateMap = () => {
