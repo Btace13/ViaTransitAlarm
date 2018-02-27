@@ -9,6 +9,9 @@ import Form from "../components/Form";
 import current from ".././assets/current.png";
 import moment from "moment";
 
+import stops from ".././data/stops.json";
+import times from ".././data/times.json";
+
 class Map extends Component {
     map = {};
     INBOUND_API_URL = "https://joelgilbert.io/buses/closestops?routeid=17&longitude=-98.48891&latitude=29.424065&isOutbound=false&radius=1600";
@@ -30,15 +33,17 @@ class Map extends Component {
     }
 
     initMap() {
+        console.log("Inside initMap()");
         let sa = { lat: 29.424065, lng: -98.48891 };
         this.map = new google.maps.Map(document.getElementById("map"), {
             zoom: 16,
             center: sa
         });
 
-        let stops = this.state.stops;
+        //let stops = this.state.stops;
 
-        //FOREACH START
+        // console.log("stops:", stops);
+
         stops.forEach(e => {
             let marker = new google.maps.Marker({
                 position: {
@@ -63,7 +68,7 @@ class Map extends Component {
                 });
             }
         });
-        //end ForEach
+
         new google.maps.Marker({
             position: sa,
             height: 20,
@@ -76,70 +81,76 @@ class Map extends Component {
         });
     }
 
-    componentWillMount() {
-        this.state.direction === "Inbound"
-            ? this.getInBound()
-            : this.getOutBound();
+    componentDidMount() {
+        // this.state.direction === "Inbound"
+        //     ? this.getInBound()
+        //     : this.getOutBound();
         // this.state.direction === "Outbound"
         //     ? this.getInBound()
         //     : this.getOutBound();
+        // this.state.direction === "Inbound" ? this.initMap() : this.initMap();
+        this.initMap();
     }
 
     getTimes = () => {
-        axios
-            .get(
-                `https://joelgilbert.io/buses/GetUpdatedDepartureTimes?routeId=17&stopId=${
-                    this.state.selectedStop
-                }&currentTime=12:00`
-            )
-            .then(response => {
-                console.log(response.data[0]);
-                this.setState({
-                    departureTimes: response.data,
-                    selectedDepartureTime: response.data[0]
-                });
-            });
-    };
-
-    getOutBound = () => {
-        axios.get(this.OUTBOUND_API_URL).then(response => {
-            this.setState({
-                stops: response.data
-            });
-            // console.log("this.map:", this.map);
-            console.log(response.data);
-
-            this.initMap();
-        });
-    };
-    getInBound = () => {
-        axios.get(this.INBOUND_API_URL).then(response => {
-            this.setState({
-                stops: response.data
-            });
-            this.initMap();
-        });
-    };
-
-    updateParent = value => {
+        // axios
+        //     .get(
+        //         `https://joelgilbert.io/buses/GetUpdatedDepartureTimes?routeId=17&stopId=${
+        //         this.state.selectedStop
+        //         }&currentTime=12:00`
+        //     )
+        //     .then(response => {
+        //         console.log(response.data[0]);
+        //         this.setState({
+        //             departureTimes: response.data,
+        //             selectedDepartureTime: response.data[0]
+        //         });
+        //     });
         this.setState({
-            Inbound: value.Inbound,
-            selectedDepartureTime: value.selectedDepartureTime,
-            notifyTime: value.notifyTime,
-            selectedTimeInc: value.selectedTimeInc,
-            textOrCall: value.textOrCall,
-            phoneNumber: value.phoneNumber
-        });
-        console.log(this.state);
-        this.sendData();
-        setTimeout(() => {this.sendData(); window.location.reload(true);}, 1000);
+            departureTimes: times
+        })
+    };
+
+    // getOutBound = () => {
+    //     axios.get(this.OUTBOUND_API_URL).then(response => {
+    //         this.setState({
+    //             stops: response.data
+    //         });
+    //         // console.log("this.map:", this.map);
+    //         console.log(response.data);
+
+    //         this.initMap();
+    //     });
+    // };
+    // getInBound = () => {
+    //     axios.get(this.INBOUND_API_URL).then(response => {
+    //         this.setState({
+    //             stops: response.data
+    //         });
+    //         this.initMap();
+    //     });
+    // };
+
+    updateParent = formData => {
+        // this.setState({
+        //     Inbound: value.Inbound,
+        //     selectedDepartureTime: value.selectedDepartureTime,
+        //     notifyTime: value.notifyTime,
+        //     selectedTimeInc: value.selectedTimeInc,
+        //     textOrCall: value.textOrCall,
+        //     phoneNumber: value.phoneNumber
+        // });
+        // console.log(JSON.stringify(this.state, null, 4));
+        this.sendData(formData);
+        // setTimeout(() => { this.sendData(); window.location.reload(true); }, 1000);
     };
 
     updateMap = () => {
         // console.log("Inside updateMap");
-        this.state.direction === "Inbound"
-            ? this.getOutBound()
-            : this.getInBound();
+        // this.state.direction === "Inbound"
+        //     ? this.getOutBound()
+        //     : this.getInBound();
+        this.state.direction === "Inbound" ? this.initMap() : this.initMap();
     };
 
     enableForm = () => {
@@ -168,50 +179,28 @@ class Map extends Component {
         this.updateMap();
     };
 
-    sendData = () => {
-        console.log(this.state);
+    sendData = (data) => {
+        console.log("Inside sendData()");
+        console.log("data:", JSON.stringify(data, null, 4));
+        // console.log(this.state);
 
-        let data = this.state;
+        // let data = this.state;
 
         let convertedTime = moment(data.selectedDepartureTime).format("H:MM");
-        console.log(data.selectedDepartureTime);
-        console.log(convertedTime);
+        // console.log(data.selectedDepartureTime);
+        // console.log(convertedTime);
 
         let convertedNotifyType = data.textOrCall ? 0 : 1;
 
         let dataString = `https://joelgilbert.io/buses/CreateNotification?routeId=17&stopId=${
-            data.selectedStop
-        }&phone=1${data.phoneNumber}&depart=${convertedTime}&notifyTime=${
+            this.state.selectedStop
+            }&phone=1${data.phoneNumber}&depart=${convertedTime}&notifyTime=${
             data.notifyTime
-        }&notifyType=${convertedNotifyType}&notifyTimeLabel=${
+            }&notifyType=${convertedNotifyType}&notifyTimeLabel=${
             data.selectedTimeInc
-        }`;
+            }`;
 
         console.log(dataString);
-        axios.get(dataString).then(response => {
-            console.log(response);
-        });
-        // departureTimes:
-        //     Array[11]
-        // direction:
-        //     "Inbound"
-        // isDisabled:
-        //     false
-        // notiftyTime:
-        //     "30"
-        // phoneNumber:
-        //     "15615115615"
-        // selectedDepatureTime:
-        //     "8:33 pm"
-        // selectedStop:
-        //     "91139"
-        // selectedTimeInc:
-        //     "min"
-        // stops:
-        //     Array[2]
-        //
-        // textOrCall:
-        //     true
     };
     render() {
         let styles = {

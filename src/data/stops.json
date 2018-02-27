@@ -1,0 +1,38 @@
+[
+    {
+        "stop_id": "4987",
+        "Latitude": 29.427473,
+        "Longitude": -98.503758,
+        "IsActive": true
+    },
+    {
+        "stop_id": "6478",
+        "Latitude": 29.429991,
+        "Longitude": -98.50212,
+        "IsActive": true
+    },
+    {
+        "stop_id": "7536",
+        "Latitude": 29.424703,
+        "Longitude": -98.501748,
+        "IsActive": true
+    },
+    {
+        "stop_id": "8113",
+        "Latitude": 29.423009,
+        "Longitude": -98.487869,
+        "IsActive": true
+    },
+    {
+        "stop_id": "8259",
+        "Latitude": 29.422531,
+        "Longitude": -98.485808,
+        "IsActive": true
+    },
+    {
+        "stop_id": "8085",
+        "Latitude": 29.423352,
+        "Longitude": -98.489384,
+        "IsActive": true
+    }
+]

@@ -5,44 +5,60 @@ import { ToastContainer, toast } from "react-toastify";
 import moment from "moment";
 
 class Form extends Component {
+    // data = {
+    //     selectedDepartureTime: "",
+    //     notifyTime: 0,
+    //     selectedTimeInc: "min",
+    //     textOrCall: "",
+    //     phoneNumber: 0
+    // };
     constructor(props) {
         super(props);
         this.state = {
-            stopSelected: 0,
             selectedDepartureTime: "",
             notifyTime: 0,
             selectedTimeInc: "min",
-            textOrCall: true,
+            textOrCall: "",
             phoneNumber: 0,
             isDisabled: true
         };
     }
 
+    componentDidMount() {
+        // ...
+    }
+
     handleSelectedTime = event => {
         this.setState({ selectedDepartureTime: event.target.value });
-        // this.props.updateParent(this.state);
+        // this.data.selectedDepartureTime = event.target.value;
+        console.log("handleSelectedTime()");
     };
     handleNotifyTime = event => {
         this.setState({ notifyTime: event.target.value });
-        // this.props.updateParent(this.state);
+        // this.data.notifyTime = event.target.value;
+        console.log("handleNotifyTime()");
     };
     handleTimeInc = event => {
         this.setState({ selectedTimeInc: event.target.value });
-        // this.props.updateParent(this.state);
+        // this.data.selectedTimeInc = event.target.value;
+        console.log("handleTimeInc()");
     };
     handleTextOrCall = event => {
         this.setState({
-            textOrCall: event.target.value === "TEXT" ? true : false
+            textOrCall: (event.target.value === "TEXT")
         });
-        // this.props.updateParent(this.state);
+        // this.data.textOrCall = (event.target.value === "TEXT");
+        console.log("handleTextOrCall()");
     };
     handlePhoneNumber = event => {
         this.setState({ phoneNumber: event.target.value });
-        // this.props.updateParent(this.state);
+        // this.data.phoneNumber = event.target.value;
+        console.log("handlePhoneNumber()");
     };
     updateParent = () => {
+        console.log("updateParent()")
+        // console.log(JSON.stringify(this.data, null, 4));
         this.props.updateParent(this.state);
-        // this.props.sendData();
     };
     validate = () => {
         if (this.state.selectedDepartureTime === "") {
@@ -53,7 +69,10 @@ class Form extends Component {
             this.alertToast("PLEASE PUT WHEN YOU WANT TO BE NOTIFIED");
         } else if (this.state.phoneNumber === 0) {
             this.alertToast("PLEASE ENTER YOUR PHONE NUMBER");
-        } else {
+        } else if (this.state.textOrCall === "") {
+            this.alertToast("PLEASE SELECTED THE NOTIFICATION TYPE");
+        }
+        else {
             this.updateParent();
             toast.success("NOTIFICATION HAS BEEN SAVED");
         }
@@ -63,6 +82,7 @@ class Form extends Component {
     }
 
     render() {
+        this.state.selectedDepartureTime = this.props.departureTimes[0]; // set default value from props
         const styles = {
             marginBottom: "20px",
             display: "flex",
